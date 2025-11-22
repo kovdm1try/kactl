@@ -9,15 +9,18 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 20
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Install pdflatex
-        run: sudo apt-get update && sudo apt-get install -y \
-          texlive-latex-base texlive-latex-recommended texlive-latex-extra
+      - name: Install TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            texlive texlive-latex-extra texlive-fonts-recommended
 
       - name: Build pdf
         run: make kactl
